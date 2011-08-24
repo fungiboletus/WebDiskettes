@@ -9,4 +9,7 @@ define('URL_REWRITING', 'app');
 
 define('DEBUG',true);
 
+define('DSN_PDO_MYSQL', 'mysql:host=localhost;dbname=dev');
+define('MYSQL_USER', 'admin');
+define('MYSQL_PASSWORD', 'ohlol');
 ?>

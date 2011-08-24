@@ -37,12 +37,10 @@ if (!method_exists($CTRL, $ACTION_NAME)) {
 $CTRL->{$ACTION_NAME}();
 
 // If just the body is requested, the page is printed
-if (isset($_REQUEST['AJAX_MODE']))
-{
+if (isset($_REQUEST['AJAX_MODE'])) {
 	ob_end_flush();
 }
-else
-{
+else {
 	// Call of the function
 	//CHead::addCSS('application');
 	CHead::addCSS('bootstrap-1.1.0.min');
@@ -55,13 +53,11 @@ else
 	$PAGE_CONTENT = ob_get_contents();
 	ob_end_clean();
 
-	if (isset($_REQUEST['PRELOAD_MODE']))
-	{
+	if (isset($_REQUEST['PRELOAD_MODE'])) {
 		header('Content-Type: image/gif');
 		echo file_get_contents('Img/Transparent.gif');
 	}
-	else
-	{
+	else {
 		header ('Content-Type: text/html; charset=utf-8');
 		require('View/template.php');
 	}

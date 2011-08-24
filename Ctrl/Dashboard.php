@@ -1,9 +1,9 @@
 <?php
 
-class Dashboard {
+class Dashboard
+{
 
-	public function index()
-	{
+	public function index() {
 		echo "Hello World !";
 	}
 }
