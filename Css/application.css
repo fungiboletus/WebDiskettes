@@ -1,5 +1,8 @@
 body{
-font-family:"Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", "Lucida Sans", Verdana, sans-serif;
+padding-top: 50px;
+}
+/*
+	font-family:"Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", "Lucida Sans", Verdana, sans-serif;
 color:black;
 margin:0;
 padding:0;
@@ -32,7 +35,7 @@ background-image: -moz-linear-gradient(
     rgb(0,71,133) 0%,
     rgb(28,66,255) 30%,
     rgb(0,145,255) 84%
-);*/
+);*//*
 }
 
 #title, #navigation {
@@ -96,7 +99,7 @@ border-collapse:collapse;
 }
 td
 {
-/*border:1px solid grey;*/
+/*border:1px solid grey;*//*
 }
 pre
 {
@@ -154,3 +157,4 @@ input:invalid
 {
 background-color: white;
 }
+*/
