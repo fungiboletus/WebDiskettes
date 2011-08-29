@@ -18,10 +18,37 @@ class Capture
 
 	public function __construct($dateID, $url) {
 		$this->dateID = $dateID;
+
+		if (strncasecmp($url, 'http://', 7) !== 0) {
+			$url = "http://$url";
+		}
+
 		$this->url = $url;
 	}
 
-	public function load() {
+	public function download() {
+
+		$this->data = file_get_contents($this->url, false, null, -1, MAX_FILESIZE);	
+
+		groaw($http_response_header);
+
+		groaw($this->getHeaderValue('Content-type', $http_response_header));
+
+	}
+
+	private function getHeaderValue($key, $http_response_header) {
+		$l = strlen($key);
+
+		foreach ($http_response_header as $line) {
+			if (strncasecmp($key, $line, $l) === 0) {
+				return trim(substr($line, $l+2));
+			}
+		}
+
+		return null;
+	}
+
+	public function loadFromCache() {
 		groaw($this->getDataPath());	
 	}
 

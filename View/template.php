@@ -38,7 +38,7 @@ if (!defined('NO_HEADER_BAR')) {
 				<input type="text" placeholder="Search">
 			</form>
 		</nav>
-	</div> <!-- /fill -->
+	</div>
 </div>
 END;
 }

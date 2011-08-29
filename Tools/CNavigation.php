@@ -125,13 +125,15 @@ class CNavigation
 					);
 	}
 	
-	public static function post()
-	{
-		if ($_SERVER['REQUEST_METHOD'] === "POST")
-		{
-			return true;
+	public static function isPost() {
+		return $_SERVER['REQUEST_METHOD'] === 'POST';
+	}
+
+	public static function isValidSubmit($keys, $request) {
+		foreach ($keys as $key) {
+			if (!array_key_exists($key, $request)) return false;
 		}
-		return false;
+		return true;
 	}
 	
 	public static function generateUrlToApp($ctrl, $action = null, $params = null)

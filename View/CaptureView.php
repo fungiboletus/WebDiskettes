@@ -15,10 +15,7 @@ class CaptureView {
 	<div class="clearfix">
 		<label for="input_url">$label_url</label>
 		<div class="input">
-			<div class="input-prepend">
-				<span class="add-on">http://</span>
-				<input name="url" id="input_url" type="text" autofocus required />
-			</div>
+			<input name="url" id="input_url" type="text" autofocus required value="http://localhost/WebDiskettes/" />
 		</div>
 	</div>
 	<div class="clearfix">
@@ -28,7 +25,7 @@ class CaptureView {
 		</div>
 	</div>
 	<div class="actions">
-		<input type="submit" class="btn primary" value="$submit_text" />
+		<input type="submit" class="btn large primary" value="$submit_text" />
 	</div>
 </fieldset>
 </form>	
