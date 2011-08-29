@@ -19,6 +19,7 @@ class Dashboard
 	
 		$capture = new Capture(time(), $_REQUEST['url']);
 		$capture->download();
+		$capture->save();
 		groaw($capture);
 	}
 }

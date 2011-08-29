@@ -15,4 +15,7 @@ define('MAX_FILESIZE', 1457000);
 define('DSN_PDO_MYSQL', 'mysql:host=localhost;dbname=dev');
 define('MYSQL_USER', 'admin');
 define('MYSQL_PASSWORD', 'ohlol');
+
+// Use compression for data storage ?
+define('USE_GZIP_COMPRESSION', false);
 ?>
