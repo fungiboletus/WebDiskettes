@@ -5,11 +5,10 @@ class Capture
 	public $dateID;
 	public $url;
 
-	// Rows
+	// Columns
 	public $date;
 	public $hash;
 	public $statusCode;
-	public $isModified;
 	public $size;
 	public $contentType;
 
@@ -74,6 +73,7 @@ class Capture
 
 		// Compress value
 		if (USE_GZIP_COMPRESSION) {
+			$this->data = gzcompress($this->data, 9);
 		}
 
 		$this->hash = sha1($this->data.'WebDiskettes');
@@ -83,17 +83,32 @@ class Capture
 		if (!file_exists($dataPath) && !file_put_contents($dataPath, $this->data)) {
 			throw new exception(_('Unable to write capture save'));	
 		}
+
+		$oUrl = new URL($this->url);
+		$oContentType = new ContentType($this->contentType);
+
+		$idUrl = $oUrl->getId();
+		$idContentType = $oContentType->getId();
+
+		CPDO::exec('INSERT INTO Captures (dateID, URLs_idURLs, date, hash, statusCode, size, ContentTypes_idContentTypes) VALUES (:dateID, :URLs_idURLs, :date, UNHEX(:hash), :statusCode, :size, :ContentTypes_idContentTypes)', array(
+				':dateID' => $this->dateID,
+				':URLs_idURLs' => $idUrl,
+				':date' => $this->date,
+				':hash' => $this->hash,
+				':statusCode' => $this->statusCode,
+				':size' => $this->size,
+				':ContentTypes_idContentTypes' => $idContentType
+			));
 	}
 
 	public function getDataPath($createDirs = false) {
 
-		$firstDir = 'Data/'.substr($this->hash, 0, 3);
-		$secondDir = $firstDir.'/'.substr($this->hash, 3, 3);
-		$dataPath = $secondDir.'/'.substr($this->hash, 6);
+		$firstDir = 'Data/'.substr($this->hash, 0, 2);
+		$secondDir = $firstDir.'/'.substr($this->hash, 2, 2);
+		$dataPath = $secondDir.'/'.substr($this->hash, 4);
 
-		groaw($dataPath);
 		if ($createDirs) {
-			if ((!is_dir($firstDir) && !mkdir($firstDir)) || (!is_dir($secondDir) && !mkdir($secondDir))) {
+			if ((!is_dir($firstDir) && !(mkdir($firstDir)&&touch("$firstDir/index.html")) || (!is_dir($secondDir) && !(mkdir($secondDir)&&touch("$secondDir/index.html"))) {
 				throw new exception(_('Unable to create dir'));
 			}
 		}
