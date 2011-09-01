@@ -47,8 +47,6 @@ class Capture
 
 		$this->size = strlen($this->data);
 
-		groaw($this->size);
-
 		$this->contentType = $this->getHeaderValue('Content-type', $http_response_header);
 
 	}
@@ -108,12 +106,18 @@ class Capture
 		$dataPath = $secondDir.'/'.substr($this->hash, 4);
 
 		if ($createDirs) {
-			if ((!is_dir($firstDir) && !(mkdir($firstDir)&&touch("$firstDir/index.html")) || (!is_dir($secondDir) && !(mkdir($secondDir)&&touch("$secondDir/index.html"))) {
+			if ((!is_dir($firstDir) && !(mkdir($firstDir)&&touch("$firstDir/index.html"))) || (!is_dir($secondDir) && !(mkdir($secondDir)&&touch("$secondDir/index.html")))) {
 				throw new exception(_('Unable to create dir'));
 			}
 		}
 
 		return $dataPath;
+	}
+
+	public static function getAll() {
+		return CPDO::exec('SELECT dateID, url, date, HEX(hash) as hash, statusCode, size, type
+FROM Captures, ContentTypes, URLs
+WHERE idURLS = URLs_idURLs AND idContentTypes = ContentTypes_idContentTypes');
 	}
 }
 ?>

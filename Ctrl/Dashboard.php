@@ -22,6 +22,10 @@ class Dashboard
 		$capture->save();
 		groaw($capture);
 	}
+
+	public function show() {
+		groaw(Capture::getAll());
+	}
 }
 
 ?>

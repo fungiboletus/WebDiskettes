@@ -23,14 +23,15 @@ if (!defined('NO_HEADER_BAR')) {
 	$title = htmlspecialchars(CNavigation::getBodyTitle());
 
 	$url_root = CNavigation::generateUrlToApp(null);
+	$url_show = CNavigation::generateUrlToApp('Dashboard', 'show');
 	echo <<<END
 <div class="topbar">
 	<div class="fill">
 		<nav class="container">
 			<h3><a href="$url_root">WebDiskettes</a></h3>
 			<ul>
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">Link</a></li>
+				<li class="active"><a href="$url_root">Home</a></li>
+				<li><a href="$url_show">Show</a></li>
 				<li><a href="#">Link</a></li>
 				<li><a href="#">Link</a></li>
 			</ul>
