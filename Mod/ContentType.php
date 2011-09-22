@@ -15,7 +15,7 @@ class ContentType
 		if ($this->id === null) {
 			CPDO::exec('INSERT IGNORE INTO ContentTypes (type) VALUES (:type)',
 					array(':type' => $this->type));
-			$this->id = CPDO::exec('SELECT idContentTypes FROM ContentTypes WHERE (type = :type) LIMIT 1',
+			$this->id = CPDO::execOne('SELECT idContentTypes FROM ContentTypes WHERE (type = :type) LIMIT 1',
 					array(':type' => $this->type))->idContentTypes;
 		}
 

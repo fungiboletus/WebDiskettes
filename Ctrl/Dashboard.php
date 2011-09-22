@@ -4,9 +4,8 @@ class Dashboard
 {
 
 	public function index() {
-		CaptureView::showForm();
-		$l = new Capture(null,null);
-		//$l->load();
+		$url = isset($_REQUEST['url']) ? $_REQUEST['url'] : null;
+		CaptureView::showForm($url);
 	}
 
 	public function submit() {
@@ -21,10 +20,6 @@ class Dashboard
 		$capture->download();
 		$capture->save();
 		groaw($capture);
-	}
-
-	public function show() {
-		groaw(Capture::getAll());
 	}
 }
 

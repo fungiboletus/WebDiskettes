@@ -28,6 +28,12 @@ class CPDO
 		
 		$values = $request->fetchAll(PDO::FETCH_CLASS);
 		
+		return $values;
+	}
+
+	public static function execOne($request, $args = array()) {
+		$values = self::exec($request, $args);
+		
 		if (count($values)===1)
 		{
 			return $values[0];

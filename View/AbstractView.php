@@ -50,15 +50,15 @@ abstract class AbstractView
 
 		if ($period < 0 || $period > 8)
 		{
-			$format = _('le <strong>%A %d %B %Y à %Hh%M</strong>');
+			$format = _('%A %d %B %Y à %Hh%M');
 		}
 		elseif ($period >= 7)
 		{
-			$format = _('le <strong>%A à %Hh%M</strong>');
+			$format = _('%A à %Hh%M');
 		}
 		else
 		{
-			$format = _('à <strong>%Hh%M</strong>');
+			$format = _('%Hh%M');
 		}
 
 		return strftime($format, $date[1]);
@@ -66,7 +66,11 @@ abstract class AbstractView
 
 	public function locateDate($date) {
 		// It's interessant to note that it's work fine
-		$t =  strtotime($date);
+		if (is_numeric($date)) {
+			$t = intval($date);
+		} else {
+			$t =  strtotime($date);
+		}
 
 		// The time is cached for improve performance
 		if (!isset($this->now)) {

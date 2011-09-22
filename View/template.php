@@ -23,6 +23,7 @@ if (!defined('NO_HEADER_BAR')) {
 	$title = htmlspecialchars(CNavigation::getBodyTitle());
 
 	$url_root = CNavigation::generateUrlToApp(null);
+	$url_urls = CNavigation::generateUrlToApp('Archive', 'urls');
 	$url_show = CNavigation::generateUrlToApp('Dashboard', 'show');
 	echo <<<END
 <div class="topbar">
@@ -32,7 +33,7 @@ if (!defined('NO_HEADER_BAR')) {
 			<ul>
 				<li class="active"><a href="$url_root">Home</a></li>
 				<li><a href="$url_show">Show</a></li>
-				<li><a href="#">Link</a></li>
+				<li><a href="$url_urls">List</a></li>
 				<li><a href="#">Link</a></li>
 			</ul>
 			<form action="">
