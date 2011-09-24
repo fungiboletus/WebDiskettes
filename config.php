@@ -18,4 +18,6 @@ define('MYSQL_PASSWORD', 'vivelescanards');
 
 // Use compression for data storage ?
 define('USE_GZIP_COMPRESSION', true);
+
+define('USER_AGENT', 'Mozilla/5.0 (X11; Linux x86_64; rv:6.0.2) Gecko/20100101 Firefox/6.0.2');
 ?>

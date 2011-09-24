@@ -80,5 +80,20 @@ class CTools
 
 		return array($nb_kibis, $tu, $u);
 	}
+
+	public static function getDataPath($hash, $createDirs = false) {
+
+		$firstDir = 'Data/'.substr($hash, 0, 2);
+		$secondDir = $firstDir.'/'.substr($hash, 2, 2);
+		$dataPath = $secondDir.'/'.substr($hash, 4);
+
+		if ($createDirs) {
+			if ((!is_dir($firstDir) && !(mkdir($firstDir)&&touch("$firstDir/index.html"))) || (!is_dir($secondDir) && !(mkdir($secondDir)&&touch("$secondDir/index.html")))) {
+				throw new exception(_('Unable to create dir'));
+			}
+		}
+
+		return $dataPath;
+	}
 }
 ?>

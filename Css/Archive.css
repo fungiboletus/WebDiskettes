@@ -1,0 +1,9 @@
+.capture_list td {
+vertical-align:middle;
+text-align:center;
+}
+.capture_list .version {
+font-size:60px;
+font-weight:bold;
+text-shadow:1px 1px 6px rgba(0,0,0,0.4);
+}

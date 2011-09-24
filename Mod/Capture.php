@@ -27,9 +27,23 @@ class Capture
 
 	public function download() {
 
-		$this->data = file_get_contents($this->url, false, null, -1, MAX_FILESIZE);
+		$context = stream_context_create(
+				array('http'=> array(
+					'header' => USER_AGENT,
+					'follow_location' => false,
+					'ignore_errors' => true
+						)));
+
+		$this->data = @file_get_contents($this->url, false, $context, -1, MAX_FILESIZE);
 
 		$this->date = time();
+
+		if ($this->data === false) {
+			$this->statusCode = 0;
+			$this->size = 0;
+			$this->contentType = 'error';
+			return;
+		}
 
 		// the hash is calculated after
 
@@ -41,13 +55,23 @@ class Capture
 		// if the header code is unknown, we think that it's 200
 		if (count($matchs) > 0) {
 			$this->statusCode = (int) $matchs[1];
+
 		} else {
 			$this->statusCode = 200;
 		}
 
-		$this->size = strlen($this->data);
-
+		groaw($http_response_header);
 		$this->contentType = $this->getHeaderValue('Content-type', $http_response_header);
+
+		if (!$this->contentType) {
+			$this->contentType = 'redirection';
+
+			if (!$this->data  && (int)($this->statusCode/100) == 3) {
+				$this->data = $this->getHeaderValue('Location', $http_response_header);
+			}
+		}
+		
+			$this->size = strlen($this->data);
 
 	}
 
@@ -101,17 +125,7 @@ class Capture
 
 	public function getDataPath($createDirs = false) {
 
-		$firstDir = 'Data/'.substr($this->hash, 0, 2);
-		$secondDir = $firstDir.'/'.substr($this->hash, 2, 2);
-		$dataPath = $secondDir.'/'.substr($this->hash, 4);
-
-		if ($createDirs) {
-			if ((!is_dir($firstDir) && !(mkdir($firstDir)&&touch("$firstDir/index.html"))) || (!is_dir($secondDir) && !(mkdir($secondDir)&&touch("$secondDir/index.html")))) {
-				throw new exception(_('Unable to create dir'));
-			}
-		}
-
-		return $dataPath;
+		return CTools::getDataPath($this->hash, $createDirs);
 	}
 
 	public static function getAll() {

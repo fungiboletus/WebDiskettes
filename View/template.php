@@ -27,10 +27,10 @@ if (!defined('NO_HEADER_BAR')) {
 	$url_show = CNavigation::generateUrlToApp('Dashboard', 'show');
 	echo <<<END
 <div class="topbar">
-	<div class="fill">
+	<div class="topbar-inner">
 		<nav class="container">
 			<h3><a href="$url_root">WebDiskettes</a></h3>
-			<ul>
+			<ul class="nav">
 				<li class="active"><a href="$url_root">Home</a></li>
 				<li><a href="$url_show">Show</a></li>
 				<li><a href="$url_urls">List</a></li>

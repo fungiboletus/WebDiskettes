@@ -28,9 +28,23 @@ class URL
 
 	public function getCaptures() {
 
-		return CPDO::exec('SELECT dateID, date, HEX(hash) as hash, statusCode, size, type
+		$hashs = array();
+		$cpt = 0;
+
+		$captures = CPDO::exec('SELECT dateID, date, HEX(hash) as hash, statusCode, size, type
 FROM Captures, ContentTypes
 WHERE URLs_idURLS = ? AND idContentTypes = ContentTypes_idContentTypes', array($this->getId()));
+
+		foreach ($captures as $capture) {
+			if (array_key_exists($capture->hash, $hashs)) {
+				$capture->version = $hashs[$capture->hash];
+			} else {
+				$capture->version = ++$cpt;
+				$hashs[$capture->hash] = $cpt;
+			}
+		}
+
+		return $captures;
 	}
 }
 ?>

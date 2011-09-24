@@ -113,5 +113,30 @@ abstract class AbstractView
 		return array(-1, $t, null);
 	}
 
+	public function getMimeIcone($mimetype)
+	{
+
+		$m;
+		preg_match('/^([^;]*)/', $mimetype, $m);
+
+		$file = str_replace('/', '-', $m[1]);
+
+        if (file_exists("Img/mimes/$file.png"))
+        {
+                return $file;
+        }
+
+        $generics = array('image', 'audio', 'text', 'video', 'package', 'message');
+
+        foreach($generics as $id => $generic)
+		{
+                if (strpos($mimetype, $generic) !== FALSE)
+                {
+                        return "$generic-x-generic";
+                }
+        }
+
+        return 'unknown';
+	}
 }
 ?>

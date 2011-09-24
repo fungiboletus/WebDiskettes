@@ -42,7 +42,7 @@ if (isset($_REQUEST['AJAX_MODE'])) {
 }
 else {
 	// Call of the function
-	CHead::addCSS('bootstrap-1.1.0.min');
+	CHead::addCSS('bootstrap.min');
 	CHead::addCSS('application');
 	CHead::addCSS($CTRL_NAME);
 	CHead::addJS('application');
