@@ -47,7 +47,7 @@ END;
 <table class="zebra-striped capture_list" id="canard">
 	<thead>
 		<tr>
-			<th class="header">Diskette</th>
+			<th class="header">Label</th>
 			<th class="header yellow headerSortDown">Date</th>
 			<th class="header green">Status code</th>
 			<th class="header orange">Type</th>
@@ -57,7 +57,7 @@ END;
 	</thead>
 	<tbody>
 END;
-		echo "<ul class=\"unstyled url_list\">\n";
+
 		foreach ($this->model as $capture) {
 			$link = CNavigation::generateUrlToApp('Archive', 'versions', array('url' => $url));
 		
@@ -75,12 +75,12 @@ END;
 
 			echo <<<END
 		<tr>
-			<td><img src="$ROOT_PATH/$qrcode_path" alt="" /></td>
-			<td><span style="display:none">$capture->date</span>$date</td>
-			<td>$statusCode</td>
-			<td><img src="$ROOT_PATH/Img/mimes/$icon.png" alt=""/>$type</td>
-			<td><span style="display:none">$capture->size</span>$size</td>
-			<td class="version">$capture->version</td>
+			<td class="diskette"><a href="#"><img src="$ROOT_PATH/$qrcode_path" alt="" /></a></td>
+			<td><a href="#"><span style="display:none">$capture->date</span>$date</a></td>
+			<td><a href="#">$statusCode</a></td>
+			<td class="mimetype"><a href="#"><img src="$ROOT_PATH/Img/mimes/$icon.png" alt=""/>$type</a></td>
+			<td><a href="#"><span style="display:none">$capture->size</span>$size</a></td>
+			<td class="version"><a href="#">$capture->version</a></td>
 		</tr>
 END;
 		/*echo "<li><a href=\"$link\">\n\t<img src=\"$ROOT_PATH/Img/mimes/$icon.png\" alt=\"",

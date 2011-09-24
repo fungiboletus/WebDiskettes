@@ -36,7 +36,7 @@ if (!defined('NO_HEADER_BAR')) {
 				<li><a href="$url_urls">List</a></li>
 				<li><a href="#">Link</a></li>
 			</ul>
-			<form action="">
+			<form action="#">
 				<input type="text" placeholder="Search">
 			</form>
 		</nav>
