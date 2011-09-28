@@ -8,23 +8,48 @@ $data = preg_replace('/<script[^>]+\/>/Uis', '', $data);
 $data = preg_replace('/<script.+<\/script.*>/iUs', '', $data);
 
 // Deletes onclick onmousemoveand…
-$data = preg_replace_callback('/<(.+)>/sU', function ($m) {
+$data = preg_replace_callback('/<(\s*)(\w+)(\s)(.+)>/sU', function ($m) {
 
-		$r = $m[1];
+		$b = strtolower($m[2]);
+		$r = $m[4];
+		//echo $b, ' --- ', $r,'<br/>';
 
-		$r = preg_replace('/on\w+\s*=\s*".*"/isU', '', $r);
-		$r = preg_replace('/on\w+\s*=\s*.*(\s|$)/isU', '', $r);
+		$r = preg_replace('/on\w+\s*=\s*((".*")|(\S+(\s|$)))/isU', '', $r);
 
-		$r = preg_replace_callback('/href\s*=\s*"(.*)"/isU', function ($mm) {
+		/*
+			Cette expression est un peu compliquée.
+			Il y a deux cas à gérer, si la cible du lien est bien entre quotes, ou
+			qu'elle ne l'est pas. Si elle ne l'est pas, il y a si élements dans $mm, au lieu de 4.
+		 */
+		$r = preg_replace_callback('/(href|src)\s*=\s*(("(.*)")|((\S+)(\s|$)))/isU', function ($mm) use($b) {
 
-			return "href=\"\"";//$mm[1];
-			}, $r);
-		return "<$r>";
-		}, $data);
+			if (count($mm) === 8) {
+				$href = $mm[6];
+			} else {
+				$href = $mm[4];
+			}
+
+			/*echo '<pre>';
+			print_r($mm);
+			var_dump($href);
+			echo '</pre>';*/
+
+			if ($b === 'base') {
+				echo "waw une nouvelle base<br/>";
+			}
+			$url = htmlspecialchars($href);//'about:blank';
+			return "href=\"$url\"";//$mm[1];
+		
+		}, $r);
+
+		//echo "-------------<br/>";
+		return "<{$m[1]}{$m[2]}{$m[3]}$r>";
+
+	}, $data);
 
 //echo '<pre>',htmlspecialchars($data), '</pre>';
 
 
-echo '<pre>',htmlspecialchars($data), '</pre>';//, $data;
+echo '<pre>',htmlspecialchars($data), '</pre>', $data;
 
 ?>
