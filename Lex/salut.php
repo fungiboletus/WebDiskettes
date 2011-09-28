@@ -4,8 +4,8 @@ $data = file_get_contents("$version.html");
 //ini_set('pcre.backtrack_limit', strlen($data)+10000);
 
 // Delete scripts
-$data = preg_replace('/<script[^>]+\/>/Uis', '', $data);
-$data = preg_replace('/<script.+<\/script.*>/iUs', '', $data);
+$data = preg_replace('/<\s*script[^>]+\/>/Uis', '', $data);
+$data = preg_replace('/<\s*script.+<\s*\/\s*script.*>/iUs', '', $data);
 
 // Deletes onclick onmousemoveand…
 $data = preg_replace_callback('/<(\s*)(\w+)(\s)(.+)>/sU', function ($m) {
@@ -38,7 +38,7 @@ $data = preg_replace_callback('/<(\s*)(\w+)(\s)(.+)>/sU', function ($m) {
 				echo "waw une nouvelle base<br/>";
 			}
 			$url = htmlspecialchars($href);//'about:blank';
-			return "href=\"$url\"";//$mm[1];
+			return "{$mm[1]}=\"$url\"";//$mm[1];
 		
 		}, $r);
 
